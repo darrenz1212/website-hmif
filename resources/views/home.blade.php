@@ -7,6 +7,7 @@
     <link rel="shortcut icon" href="{{ asset('asset/Logo-HMIF.png') }}" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet"/>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
@@ -22,11 +23,11 @@
             </div>
             <!-- Menu Navigasi -->
             <div class="hidden md:flex space-x-8">
-                <a href="#" class="block px-1 py-2 text-gray-700 hover:text-[#0DB0BB]">Home</a>
-                <a href="#" class="block px-1 py-2 text-gray-700 hover:text-[#0DB0BB]">About</a>
-                <a href="#" class="block px-1 py-2 text-gray-700 hover:text-[#0DB0BB]">Event</a>
-                <a href="#" class="block px-1 py-2 text-gray-700 hover:text-[#0DB0BB]">Aspiration Form</a>
-                <a href="#" class="block px-1 py-2 text-gray-700 hover:text-[#0DB0BB]">Galery</a>
+                <a href="#home" class="block px-1 py-2 text-gray-700 hover:text-[#0DB0BB]">Home</a>
+                <a href="#about" class="block px-1 py-2 text-gray-700 hover:text-[#0DB0BB]">About</a>
+                <a href="#event" class="block px-1 py-2 text-gray-700 hover:text-[#0DB0BB]">Event</a>
+                <a href="{{ route('aspiration')}}" class="block px-1 py-2 text-gray-700 hover:text-[#0DB0BB]">Aspiration Form</a>
+                <a href="#news" class="block px-1 py-2 text-gray-700 hover:text-[#0DB0BB]">News</a>
                 <a href="#" class="block px-1 py-2 text-gray-700 hover:text-[#0DB0BB]">Contact</a>
             </div>
             <!-- Tombol Menu Mobile -->
@@ -43,16 +44,16 @@
     </div>
     <!-- Menu Mobile -->
     <div id="mobile-menu" class="hidden md:hidden">
-        <a href="#" class="block px-4 py-2 text-gray-700 hover:text-[#0DB0BB]">Home</a>
-        <a href="#" class="block px-4 py-2 text-gray-700 hover:text-[#0DB0BB]">About</a>
-        <a href="#" class="block px-4 py-2 text-gray-700 hover:text-[#0DB0BB]">Event</a>
-        <a href="#" class="block px-4 py-2 text-gray-700 hover:text-[#0DB0BB]">Aspiration Form</a>
-        <a href="#" class="block px-4 py-2 text-gray-700 hover:text-[#0DB0BB]">Galery</a>
-        <a href="#" class="block px-4 py-2 text-gray-700 hover:text-[#0DB0BB]">Contact</a>
+        <a href="#home" class="block px-1 py-2 text-gray-700 hover:text-[#0DB0BB]">Home</a>
+        <a href="#about" class="block px-1 py-2 text-gray-700 hover:text-[#0DB0BB]">About</a>
+        <a href="#event" class="block px-1 py-2 text-gray-700 hover:text-[#0DB0BB]">Event</a>
+        <a href="{{ route('aspiration')}}" class="block px-1 py-2 text-gray-700 hover:text-[#0DB0BB]">Aspiration Form</a>
+        <a href="#news" class="block px-1 py-2 text-gray-700 hover:text-[#0DB0BB]">News</a>
+        <a href="#" class="block px-1 py-2 text-gray-700 hover:text-[#0DB0BB]">Contact</a>
     </div>
 </nav>
-{{--=========================================================== Carousel =========================================================== --}}
-<section class="bg-[#F5F5F5]" data-aos="fade" data-aos-duration="2000">
+{{--=========================================================== Hero =========================================================== --}}
+<section class="bg-[#F5F5F5]" data-aos="fade" data-aos-duration="2000" id="home">
     <div
         class="hero min-h-screen"
         style="background-image: url('{{ asset('asset/fullteam.png') }}');">
@@ -68,9 +69,9 @@
         </div>
     </div>
 </section>
-{{--=========================================================== Carousel end =========================================================== --}}
+{{--=========================================================== Hero end =========================================================== --}}
 {{--=========================================================== About HMIF =========================================================== --}}
-<section>
+<section id="about">
     <div class="container-sm  my-5 pt-5 pb-10">
         <div class="row">
             <h1 class="font-sans text-5xl font-semibold text-center underline-offset-8">About HMIF</h1>
@@ -87,7 +88,7 @@
 </section>
 {{--=========================================================== About HMIF END =========================================================== --}}
 {{--=========================================================== Event =========================================================== --}}
-<section>
+<section id="event">
     <div class="container-sm my-5 pt-16 pb-10">
         <div class="row" data-aos="fade-up" data-aos-duration="2000">
             <h1 class="font-sans text-5xl font-semibold text-center underline-offset-8">Our Event</h1>
@@ -97,33 +98,35 @@
             <div class="w-full relative" >
                 <div class="swiper multiple-slide-carousel swiper-container relative" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="500">
                     <div class="swiper-wrapper mb-16">
-                        <div class="swiper-slide">
-                            <div class=" relative max-w-xl mx-auto mt-20">
-                                <img class="h-64 w-full object-cover rounded-md" src="{{ asset('asset/hmif-full.png') }}" alt="Random image">
-                                <div class="absolute inset-0 bg-gray-700 opacity-60 rounded-md"></div>
-                                <div class="absolute inset-0 flex items-center justify-center">
-                                    <h2 class="text-white text-3xl font-bold">Digital Marketing Championship</h2>
+                        @foreach($events as $e)
+                            <div class="swiper-slide">
+                                <div class=" relative max-w-xl mx-auto mt-20">
+                                    <img class="h-64 w-full object-cover rounded-md" src="{{ asset($e->img_path) }}" alt="Random image">
+                                    <div class="absolute inset-0 bg-gray-700 opacity-60 rounded-md"></div>
+                                    <div class="absolute inset-0 flex items-center justify-center">
+                                        <h2 class="text-white text-3xl font-bold">{{ $e->nama_event }}</h2>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="swiper-slide" data-aos="fade-up">
-                            <div class=" relative max-w-xl mx-auto mt-20">
-                                <img class="h-64 w-full object-cover rounded-md" src="{{ asset('asset/forkom.JPG') }}" alt="Random image">
-                                <div class="absolute inset-0 bg-gray-700 opacity-60 rounded-md"></div>
-                                <div class="absolute inset-0 flex items-center justify-center">
-                                    <h2 class="text-white text-3xl font-bold">Forum Komunikasi</h2>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class=" relative max-w-xl mx-auto mt-20">
-                                <img class="h-64 w-full object-cover rounded-md" src="{{ asset('asset/hmifxutb.JPG') }}" alt="Random image">
-                                <div class="absolute inset-0 bg-gray-700 opacity-60 rounded-md"></div>
-                                <div class="absolute inset-0 flex items-center justify-center">
-                                    <h2 class="text-white text-3xl font-bold">Stuban X UTB</h2>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
+{{--                        <div class="swiper-slide" data-aos="fade-up">--}}
+{{--                            <div class=" relative max-w-xl mx-auto mt-20">--}}
+{{--                                <img class="h-64 w-full object-cover rounded-md" src="{{ asset('asset/forkom.JPG') }}" alt="Random image">--}}
+{{--                                <div class="absolute inset-0 bg-gray-700 opacity-60 rounded-md"></div>--}}
+{{--                                <div class="absolute inset-0 flex items-center justify-center">--}}
+{{--                                    <h2 class="text-white text-3xl font-bold">Forum Komunikasi</h2>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="swiper-slide">--}}
+{{--                            <div class=" relative max-w-xl mx-auto mt-20">--}}
+{{--                                <img class="h-64 w-full object-cover rounded-md" src="{{ asset($events->img_path) }}" alt="Random image">--}}
+{{--                                <div class="absolute inset-0 bg-gray-700 opacity-60 rounded-md"></div>--}}
+{{--                                <div class="absolute inset-0 flex items-center justify-center">--}}
+{{--                                    <h2 class="text-white text-3xl font-bold">{{ $events->nama_event }}</h2>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
                     </div>
                     <div class="absolute flex justify-center items-center m-auto left-0 right-0 w-fit bottom-12" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="500">
                         <button id="slider-button-left" class="swiper-button-prev group !p-2 flex justify-center items-center border border-solid border-indigo-600 !w-12 !h-12 transition-all duration-500 rounded-full  hover:bg-indigo-600 !-translate-x-16" data-carousel-prev>
@@ -144,7 +147,7 @@
 </section>
 {{--=========================================================== Event end =========================================================== --}}
 {{--===========================================================  Division  =========================================================== --}}
-<section>
+<section id="division">
     <div class="container-sm my-5 pt-16 pb-10">
         <div class="row" data-aos="fade-up" data-aos-duration="2000" >
             <h1 class="font-sans text-5xl font-semibold text-center underline-offset-8">HMIF Division</h1>
@@ -202,44 +205,61 @@
 </section>
 {{--===========================================================  Division end =========================================================== --}}
 {{--===========================================================  News   =========================================================== --}}
-<section>
+<section id="news">
     <div class="container-sm my-5 pt-16 pb-10">
         <div class="row pb-10" data-aos="fade-up" data-aos-duration="2000" >
             <h1 class="font-sans text-5xl font-semibold  underline">News</h1>
         </div>
         {{-- News --}}
-        <div class="row pt-10 my-4" data-aos="fade-up" >
-            <div class="col" data-aos-duration="2000" data-aos-delay="500">
-                <div class="card" style="width: 18rem;" >
-                    <img src="{{ asset('asset/forkom.JPG') }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">FORKOM 2024</h5>
-                        <p class="card-text">By Darren Zavier</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+        @foreach($news as $n)
+            @if($n->id / 3 == 0)
+                <div class="row pt-10 my-4" data-aos="fade-up">
+                    <div class="col" data-aos-duration="2000" data-aos-delay="500">
+                        <div class="card" style="width: 18rem;">
+                            <img src="{{ asset($n->img_path) }}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $n->judul }}</h5>
+                                <p class="card-text">By {{ $n->author }}</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col" data-aos-duration="2000" data-aos-delay="500">
-                <div class="card" style="width: 18rem;" >
-                    <img src="{{ asset('asset/hmif-full.png') }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">ORANG CABUL TERTANGKAP!</h5>
-                        <p class="card-text">By koboy lonte</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+            @else
+                <div class="col" data-aos-duration="2000" data-aos-delay="500">
+                    <div class="card" style="width: 18rem;">
+                        <img src="{{ asset($n->img_path) }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $n->judul }}</h5>
+                            <p class="card-text">By {{ $n->author }}</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col" data-aos-duration="2000" data-aos-delay="500">
-                <div class="card" style="width: 18rem;" >
-                    <img src="{{ asset('asset/pilmapres_02.png') }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">kini HMIF aman</h5>
-                        <p class="card-text">by jawanisme</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+            @endif
+        @endforeach
+
+        {{--            <div class="col" data-aos-duration="2000" data-aos-delay="500">--}}
+{{--                <div class="card" style="width: 18rem;" >--}}
+{{--                    <img src="{{ asset('asset/hmif-full.png') }}" class="card-img-top" alt="...">--}}
+{{--                    <div class="card-body">--}}
+{{--                        <h5 class="card-title">ORANG CABUL TERTANGKAP!</h5>--}}
+{{--                        <p class="card-text">By koboy lonte</p>--}}
+{{--                        <a href="#" class="btn btn-primary">Go somewhere</a>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--            <div class="col" data-aos-duration="2000" data-aos-delay="500">--}}
+{{--                <div class="card" style="width: 18rem;" >--}}
+{{--                    <img src="{{ asset('asset/pilmapres_02.png') }}" class="card-img-top" alt="...">--}}
+{{--                    <div class="card-body">--}}
+{{--                        <h5 class="card-title">kini HMIF aman</h5>--}}
+{{--                        <p class="card-text">by jawanisme</p>--}}
+{{--                        <a href="#" class="btn btn-primary">Go somewhere</a>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
     </div>
 </section>
 {{--===========================================================  News end =========================================================== --}}
@@ -333,6 +353,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     AOS.init();
 </script>
