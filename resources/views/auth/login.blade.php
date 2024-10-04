@@ -6,10 +6,12 @@
         @csrf
 
         <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        <div class="mb-4">
+            <label for="name" class="block text-gray-700">Username</label>
+            <input id="name" class="w-full p-2 mt-1 border rounded-md @error('name') border-red-500 @enderror" type="text" name="name" value="{{ old('name') }}" required autofocus>
+            @error('name')
+            <span class="text-red-500 text-sm">{{ $message }}</span>
+            @enderror
         </div>
 
         <!-- Password -->
