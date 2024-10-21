@@ -1,4 +1,4 @@
-@extends('layouts.starter');
+@extends('layouts.starter')
 
 @section('main-content')
     <h1>Hello World</h1>

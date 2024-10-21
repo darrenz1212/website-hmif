@@ -17,9 +17,15 @@ class AspController extends Controller
         $request->validate([
             'message' => 'required|max:255',
         ]);
-        Aspiration::create([
-            'message' => $request->input('message'),
-        ]);
-        return redirect()->back()->with('success', 'Aspirasi Anda telah dikirim.');
+
+        if ($request->input('message') == "ELGARNACHOR") {
+            return redirect()->back()->with('error', 'Pesan "ELGARNCHOR" tidak diperbolehkan.');
+        } else {
+            Aspiration::create([
+                'message' => $request->input('message'),
+            ]);
+            return redirect()->back()->with('success', 'Aspirasi Anda telah dikirim.');
+        }
     }
+
 }
