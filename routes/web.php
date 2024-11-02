@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\EventController;
 
 
 //=================================================== FrontEnd Side ===================================================
@@ -24,12 +25,20 @@ Route::get('/register',[AuthenticatedSessionController::class,'index'])->name('r
 
 
 //=================================================== Admin Side ===================================================
-Route::get('/admin',[AdminController::class,'index'])->name('admin');
-Route::get('/showASP',[AdminController::class,'showAspiration'])->name('show-aspiration');
-Route::get('/newsmanage', [NewsController::class, 'manage'])->name('news.manage');
-Route::post('/news', [NewsController::class, 'store'])->name('news.store');
-Route::put('/news/{id}', [NewsController::class, 'update'])->name('news.update');
-Route::delete('/news/{id}', [NewsController::class, 'destroy'])->name('news.destroy');
+Route::middleware('auth')->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+    Route::get('/showASP', [AdminController::class, 'showAspiration'])->name('show-aspiration');
+
+    Route::get('/newsmanage', [NewsController::class, 'manage'])->name('news.manage');
+    Route::post('/news', [NewsController::class, 'store'])->name('news.store');
+    Route::put('/news/{id}', [NewsController::class, 'update'])->name('news.update');
+    Route::delete('/news/{id}', [NewsController::class, 'destroy'])->name('news.destroy');
+
+    Route::get('/eventmanage', [EventController::class, 'manage'])->name('event.manage');
+    Route::post('/events', [EventController::class, 'store'])->name('events.store');
+    Route::put('/events/{id}', [EventController::class, 'update'])->name('events.update');
+    Route::delete('/events/{id}', [EventController::class, 'destroy'])->name('events.destroy');
+});
 
 
 

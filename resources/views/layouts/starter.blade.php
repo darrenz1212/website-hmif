@@ -90,19 +90,19 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="./widgets/small-box.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                    <a href="{{ route('event.manage') }}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
                                         <p>Event</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="./widgets/small-box.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                    <a href="{{ route('news.manage') }}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
                                         <p>News</p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="nav-item"> <a href="./generate/theme.html" class="nav-link"> <i class="nav-icon bi bi-palette"></i>
-                                <p>Pemilihan Ketua Sema</p>
+                                <p>Pemilihan Ketua Hima</p>
                             </a>
                         </li>
                         <li class="nav-item">
