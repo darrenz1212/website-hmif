@@ -9,6 +9,8 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\VoteController;
+use App\Http\Controllers\CandidateController;
 
 
 //=================================================== FrontEnd Side ===================================================
@@ -16,7 +18,7 @@ Route::get('/',[HomeController::class,'index'])->name('home');
 Route::get('/aspiration', [AspController::class,'index'])->name('aspiration');
 Route::post('/storeAsp',[AspController::class,'store'])->name('store-asp');
 Route::get('/news/{slug}', [NewsController::class,'show'])->name('news.show');
-
+Route::get('/pkh',[VoteController::class,'validate']);
 
 
 //=================================================== Auth ===================================================
@@ -38,6 +40,18 @@ Route::middleware('auth')->group(function () {
     Route::post('/events', [EventController::class, 'store'])->name('events.store');
     Route::put('/events/{id}', [EventController::class, 'update'])->name('events.update');
     Route::delete('/events/{id}', [EventController::class, 'destroy'])->name('events.destroy');
+
+    Route::get('/candidatemanage',[CandidateController::class,'editCandidates'])->name('candidates.edit');
+    Route::post('/candidates', [CandidateController::class, 'store'])->name('candidates.store');
+    Route::put('/candidates/{id}', [CandidateController::class, 'update'])->name('candidates.update');
+    Route::delete('/candidates/{id}', [CandidateController::class, 'destroy'])->name('candidates.destroy');
+
+    Route::get('/vote/stat', [VoteController::class, 'voteStat'])->name('vote.stat');
+    Route::post('/vote/stat/update', [VoteController::class, 'updateVoteStatus'])->name('vote.updateStatus');
+    Route::get('/vote/count', [VoteController::class, 'voteCount'])->name('vote.count');
+    Route::post('/vote/{id}', [VoteController::class, 'castVote'])->name('vote.cast');
+    Route::post('/votes/clear', [VoteController::class, 'clearVotes'])->name('votes.clear');
+
 });
 
 

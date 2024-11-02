@@ -10,7 +10,7 @@ class VoteStats extends Model
     use HasFactory;
 
     // Nama tabel
-    protected $table = 'voting_status';
+    protected $table = 'voting_stats';
 
     // Kolom yang bisa diisi (mass assignable)
     protected $fillable = ['status'];
@@ -19,4 +19,9 @@ class VoteStats extends Model
     protected $casts = [
         'status' => 'boolean',
     ];
+
+    // Atur primary key menjadi 'status' atau tidak ada primary key
+    public $incrementing = false;
+    protected $primaryKey = null;
+    public $timestamps = false; // Nonaktifkan timestamps jika tidak ada kolom created_at dan updated_at
 }

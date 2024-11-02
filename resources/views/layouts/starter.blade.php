@@ -90,20 +90,44 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('event.manage') }}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                    <a href="{{ route('event.manage') }}" class="nav-link">
                                         <p>Event</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('news.manage') }}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                    <a href="{{ route('news.manage') }}" class="nav-link">
                                         <p>News</p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item"> <a href="./generate/theme.html" class="nav-link"> <i class="nav-icon bi bi-palette"></i>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link"> <i class="nav-icon bi bi-palette"></i>
                                 <p>Pemilihan Ketua Hima</p>
+                                <i class="nav-arrow bi bi-chevron-right"></i>
                             </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('vote.stat') }}" class="nav-link">
+                                        <p>Edit status PKH</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('candidates.edit') }}" class="nav-link">
+                                        <p>Edit Kandidat</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('vote.count') }}" class="nav-link">
+                                        <p>Hitung Suara</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('votes.clear') }}" class="nav-link">
+                                        <p>Hapus semua suara</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <form action="{{ route('logout') }}" method="POST">
