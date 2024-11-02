@@ -7,19 +7,30 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\AdminController;
-
+use App\Http\Controllers\NewsController;
 
 
 //=================================================== FrontEnd Side ===================================================
 Route::get('/',[HomeController::class,'index'])->name('home');
 Route::get('/aspiration', [AspController::class,'index'])->name('aspiration');
 Route::post('/storeAsp',[AspController::class,'store'])->name('store-asp');
+Route::get('/news/{slug}', [NewsController::class,'show'])->name('news.show');
+
+
+
 //=================================================== Auth ===================================================
 Route::get('/login',[AuthenticatedSessionController::class,'index'])->name('login');
 Route::get('/register',[AuthenticatedSessionController::class,'index'])->name('register');
+
+
 //=================================================== Admin Side ===================================================
 Route::get('/admin',[AdminController::class,'index'])->name('admin');
 Route::get('/showASP',[AdminController::class,'showAspiration'])->name('show-aspiration');
+Route::get('/newsmanage', [NewsController::class, 'manage'])->name('news.manage');
+Route::post('/news', [NewsController::class, 'store'])->name('news.store');
+Route::put('/news/{id}', [NewsController::class, 'update'])->name('news.update');
+Route::delete('/news/{id}', [NewsController::class, 'destroy'])->name('news.destroy');
+
 
 
 Route::get('/dashboard', function () {

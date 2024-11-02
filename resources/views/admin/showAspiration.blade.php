@@ -20,8 +20,6 @@
             </tr>
 
         @endforeach
-
-        <!-- Tambahkan baris data lainnya sesuai kebutuhan -->
         </tbody>
     </table>
 

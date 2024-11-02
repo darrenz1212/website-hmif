@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aspiration;
+use App\Models\News;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -19,5 +20,12 @@ class AdminController extends Controller
         return view('admin.showAspiration',[
             'aspiration' => $aspiration
         ]);
+    }
+
+    public function showNews()
+    {
+        $news = News::all();
+
+        return view('admin.editNews');
     }
 }

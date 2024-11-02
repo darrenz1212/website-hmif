@@ -12,15 +12,14 @@ class HomeController extends Controller
     {
     // ================================== Event ==================================
         $events = Event::all();
-
     // ================================== News ==================================
         $news = News::all();
 
         return view('home', [
             'events' => $events,
-            'news' => $news
+            'news' => $news,
         ]);
 
-//        return dd($news);
+//        return dd($count);
     }
 }
