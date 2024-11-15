@@ -10,10 +10,10 @@
         <div class="hero-content text-neutral-content text-center">
             <div class="max-w-md">
                 <h1 class="mb-5 text-5xl font-bold">Welcome to HMIF official website</h1>
-                <p class="mb-5">
-                    Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
-                    quasi. In deleniti eaque aut repudiandae et a id nisi.
-                </p>
+{{--                <p class="mb-5">--}}
+{{--                    Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem--}}
+{{--                    quasi. In deleniti eaque aut repudiandae et a id nisi.--}}
+{{--                </p>--}}
             </div>
         </div>
     </div>
@@ -30,7 +30,7 @@
                 <img src="{{ asset('asset/Logo-HMIF-Tulisan.png') }}" alt="Logo HMIF">
             </div>
             <div class="col-sm-8" data-aos="fade-left" data-aos-duration="2000">
-                <h1 class="font-sans font-medium">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus mauris magna, eleifend quis luctus a, tincidunt eu mauris. Mauris nec velit lorem. Fusce imperdiet, augue ut tempus facilisis, orci nulla maximus lacus, ut eleifend dui dui ac ante. Quisque nec lacus et est tincidunt tempus. Nulla sollicitudin auctor nibh ut ullamcorper. Curabitur sollicitudin, velit nec dignissim semper, justo tortor luctus neque, ac dapibus orci leo sed nulla. Ut iaculis semper dolor, sed blandit lectus iaculis eget. Curabitur nec sem erat. Sed fermentum urna semper orci blandit, eu pharetra lorem maximus. Vestibulum laoreet libero arcu, ac varius quam sagittis sed. Pellentesque sit amet pulvinar tellus. Fusce ante risus, efficitur vitae turpis nec, vulputate placerat ante. Aenean malesuada feugiat fringilla. Praesent facilisis tortor id varius vehicula. Curabitur fermentum odio eget vulputate euismod.</h1>
+                <h1 class="font-sans font-medium">HMIF (Himpunan Mahasiswa Teknik Informatika) adalah wadah bagi mahasiswa Teknik Informatika untuk berkembang dan berkolaborasi, menghubungkan para mahasiswa dengan kesempatan belajar, berkarya, dan berkontribusi dalam dunia teknologi. Dengan berbagai program seperti seminar, workshop, hackathon, dan mentoring, kami berkomitmen untuk membentuk lingkungan yang mendukung pengembangan diri, baik secara akademis maupun profesional, serta membekali anggota kami dengan keterampilan yang relevan dan siap bersaing di dunia kerja.</h1>
             </div>
         </div>
     </div>

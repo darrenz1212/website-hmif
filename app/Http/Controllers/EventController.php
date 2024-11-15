@@ -19,7 +19,7 @@ class EventController extends Controller
     {
         $request->validate([
             'nama_event' => 'required|string|max:255',
-            'img_path' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'img_path' => 'image|mimes:jpeg,png,jpg,gif,svg|max:20480',
         ]);
 
         // Proses upload gambar ke folder 'public/asset/eventimg'
@@ -36,7 +36,7 @@ class EventController extends Controller
             'img_path' => $imagePath,
         ]);
 
-        return redirect()->route('events.manage')->with('success', 'Event berhasil ditambahkan!');
+        return redirect()->route('event.manage')->with('success', 'Event berhasil ditambahkan!');
     }
 
     // Memperbarui event yang sudah ada di database
@@ -46,7 +46,7 @@ class EventController extends Controller
 
         $request->validate([
             'nama_event' => 'required|string|max:255',
-            'img_path' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'img_path' => 'image|mimes:jpeg,png,jpg,gif,svg|max:20480',
         ]);
 
         // Proses upload gambar ke folder 'public/asset/eventimg'
@@ -68,7 +68,7 @@ class EventController extends Controller
             'img_path' => $imagePath,
         ]);
 
-        return redirect()->route('events.manage')->with('success', 'Event berhasil diperbarui!');
+        return redirect()->route('event.manage')->with('success', 'Event berhasil diperbarui!');
     }
 
     // Menghapus event dari database
@@ -83,6 +83,6 @@ class EventController extends Controller
 
         $event->delete();
 
-        return redirect()->route('events.manage')->with('success', 'Event berhasil dihapus!');
+        return redirect()->route('event.manage')->with('success', 'Event berhasil dihapus!');
     }
 }

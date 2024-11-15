@@ -23,7 +23,7 @@ Route::get('/pkh',[VoteController::class,'validate']);
 
 //=================================================== Auth ===================================================
 Route::get('/login',[AuthenticatedSessionController::class,'index'])->name('login');
-Route::get('/register',[AuthenticatedSessionController::class,'index'])->name('register');
+
 
 
 //=================================================== Admin Side ===================================================
@@ -51,6 +51,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/vote/count', [VoteController::class, 'voteCount'])->name('vote.count');
     Route::post('/vote/{id}', [VoteController::class, 'castVote'])->name('vote.cast');
     Route::post('/votes/clear', [VoteController::class, 'clearVotes'])->name('votes.clear');
+
+    Route::get('/register',[AuthenticatedSessionController::class,'index'])->name('register');
 
 });
 

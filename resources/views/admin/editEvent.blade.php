@@ -5,7 +5,7 @@
         <h1>Kelola Event</h1>
 
         {{-- Tombol Tambah Event --}}
-        <button class="btn btn-primary mb-3" onclick="toggleForm('create')">Tambahkan Event</button>
+        <button class="btn btn-primary mb-3" onclick="toggleCreateForm()">Tambahkan Event</button>
 
         {{-- Tabel Daftar Event --}}
         <table class="table">
@@ -24,7 +24,10 @@
                     <td>{{ $event->nama_event }}</td>
                     <td><img src="{{ asset($event->img_path) }}" alt="Event Image" class="img-thumbnail" width="100"></td>
                     <td>
-                        <button class="btn btn-sm btn-info" onclick="editEvent({{ $event }})">Edit</button>
+                        {{-- Tombol Edit --}}
+                        <button class="btn btn-sm btn-info" onclick="toggleEditForm({{ $event }})">Edit</button>
+
+                        {{-- Form Hapus --}}
                         <form action="{{ route('events.destroy', $event->event_id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
@@ -36,42 +39,71 @@
             </tbody>
         </table>
 
-        {{-- Form Tambah/Edit Event --}}
-        <div id="event-form" style="display: none;">
-            <form id="eventForm" action="{{ route('events.store') }}" method="POST" enctype="multipart/form-data">
+        {{-- Form Tambah Event --}}
+        <div id="create-form" style="display: none;">
+            <h3>Tambah Event Baru</h3>
+            <form action="{{ route('events.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <input type="hidden" name="_method" id="form-method" value="POST">
-                <input type="hidden" name="event_id" id="event_id">
 
                 <div class="form-group">
                     <label for="nama_event">Nama Event</label>
-                    <input type="text" name="nama_event" id="nama_event" class="form-control" required>
+                    <input type="text" name="nama_event" class="form-control" required>
                 </div>
 
                 <div class="form-group">
                     <label for="img_path">Gambar</label>
-                    <input type="file" name="img_path" id="img_path" class="form-control-file">
+                    <input type="file" name="img_path" class="form-control-file">
                 </div>
 
                 <button type="submit" class="btn btn-success">Simpan</button>
-                <button type="button" class="btn btn-secondary" onclick="toggleForm()">Batal</button>
+                <button type="button" class="btn btn-secondary" onclick="toggleCreateForm()">Batal</button>
+            </form>
+        </div>
+
+        {{-- Form Edit Event --}}
+        <div id="edit-form" style="display: none;">
+            <h3>Edit Event</h3>
+            <form id="editEventForm" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+
+                <input type="hidden" name="event_id" id="edit_event_id">
+
+                <div class="form-group">
+                    <label for="nama_event">Nama Event</label>
+                    <input type="text" name="nama_event" id="edit_nama_event" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="img_path">Gambar</label>
+                    <input type="file" name="img_path" class="form-control-file">
+                </div>
+
+                <button type="submit" class="btn btn-success">Update</button>
+                <button type="button" class="btn btn-secondary" onclick="toggleEditForm()">Batal</button>
             </form>
         </div>
     </div>
 
     <script>
-        function toggleForm(action = 'create') {
-            const form = document.getElementById('event-form');
-            const eventForm = document.getElementById('eventForm');
-            form.style.display = form.style.display === 'none' ? 'block' : 'none';
-            eventForm.action = action === 'create' ? "{{ route('events.store') }}" : "{{ url('/events') }}/" + document.getElementById('event_id').value;
-            document.getElementById('form-method').value = action === 'create' ? 'POST' : 'PUT';
+        function toggleCreateForm() {
+            const createForm = document.getElementById('create-form');
+            createForm.style.display = createForm.style.display === 'none' ? 'block' : 'none';
         }
 
-        function editEvent(event) {
-            toggleForm('edit');
-            document.getElementById('event_id').value = event.event_id;
-            document.getElementById('nama_event').value = event.nama_event;
+        function toggleEditForm(event = null) {
+            const editForm = document.getElementById('edit-form');
+            editForm.style.display = editForm.style.display === 'none' ? 'block' : 'none';
+
+            if (event) {
+                // Isi form dengan data event yang akan diedit
+                document.getElementById('edit_event_id').value = event.event_id;
+                document.getElementById('edit_nama_event').value = event.nama_event;
+
+                // Atur action form dengan route update sesuai event ID
+                const editEventForm = document.getElementById('editEventForm');
+                editEventForm.action = "{{ url('/events') }}/" + event.event_id;
+            }
         }
     </script>
 @endsection

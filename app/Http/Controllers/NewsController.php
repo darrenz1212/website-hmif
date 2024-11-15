@@ -22,10 +22,9 @@ class NewsController extends Controller
             'judul' => 'required|string|max:255',
             'author' => 'required|string|max:255',
             'artikel' => 'required|string',
-            'img_path' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'img_path' => 'image|mimes:jpeg,png,jpg,gif,svg|max:20480',
         ]);
 
-        // Proses upload gambar ke folder 'public/asset/newsimg'
         $imagePath = null;
         if ($request->hasFile('img_path')) {
             $file = $request->file('img_path');

@@ -4,7 +4,7 @@
     <h1>Pengelolaan Berita</h1>
 
     {{-- Tombol Tambah Berita --}}
-    <button class="btn btn-primary mb-3" onclick="toggleForm('create')">Tambahkan Berita</button>
+    <button class="btn btn-primary mb-3" onclick="toggleCreateForm()">Tambahkan Berita</button>
 
     {{-- Tabel Daftar Berita --}}
     <table class="table">
@@ -23,7 +23,7 @@
                 <td>{{ $n->judul }}</td>
                 <td>{{ $n->author }}</td>
                 <td>
-                    <button class="btn btn-sm btn-info" onclick="editNews({{ $n }})">Edit</button>
+                    <button class="btn btn-sm btn-info" onclick="toggleEditForm({{ $n }})">Edit</button>
                     <form action="{{ route('news.destroy', $n->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
@@ -35,54 +35,89 @@
         </tbody>
     </table>
 
-    {{-- Form Tambah/Edit Berita --}}
-    <div id="news-form" style="display: none;">
-        <form id="newsForm" action="{{ route('news.store') }}" method="POST" enctype="multipart/form-data">
+    {{-- Form Tambah Berita --}}
+    <div id="create-form" style="display: none;">
+        <h3>Tambah Berita Baru</h3>
+        <form action="{{ route('news.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <input type="hidden" name="_method" id="form-method" value="POST">
-            <input type="hidden" name="news_id" id="news_id">
 
             <div class="form-group">
                 <label for="judul">Judul</label>
-                <input type="text" name="judul" id="judul" class="form-control" required>
+                <input type="text" name="judul" class="form-control" required>
             </div>
 
             <div class="form-group">
                 <label for="author">Author</label>
-                <input type="text" name="author" id="author" class="form-control" required>
+                <input type="text" name="author" class="form-control" required>
             </div>
 
             <div class="form-group">
                 <label for="artikel">Artikel</label>
-                <textarea name="artikel" id="artikel" class="form-control" rows="5" required></textarea>
+                <textarea name="artikel" class="form-control" rows="5" required></textarea>
             </div>
 
             <div class="form-group">
                 <label for="img_path">Gambar</label>
-                <input type="file" name="img_path" id="img_path" class="form-control-file">
+                <input type="file" name="img_path" class="form-control-file">
             </div>
 
             <button type="submit" class="btn btn-success">Simpan</button>
-            <button type="button" class="btn btn-secondary" onclick="toggleForm()">Batal</button>
+            <button type="button" class="btn btn-secondary" onclick="toggleCreateForm()">Batal</button>
         </form>
     </div>
+
+    {{-- Form Edit Berita --}}
+    <div id="edit-form" style="display: none;">
+        <h3>Edit Berita</h3>
+        <form id="editNewsForm" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+
+            <div class="form-group">
+                <label for="edit_judul">Judul</label>
+                <input type="text" name="judul" id="edit_judul" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="edit_author">Author</label>
+                <input type="text" name="author" id="edit_author" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="edit_artikel">Artikel</label>
+                <textarea name="artikel" id="edit_artikel" class="form-control" rows="5" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="edit_img_path">Gambar</label>
+                <input type="file" name="img_path" id="edit_img_path" class="form-control-file">
+            </div>
+
+            <button type="submit" class="btn btn-success">Update</button>
+            <button type="button" class="btn btn-secondary" onclick="toggleEditForm()">Batal</button>
+        </form>
     </div>
 
     <script>
-        function toggleForm(action = 'create') {
-            const form = document.getElementById('news-form');
-            const newsForm = document.getElementById('newsForm');
-            form.style.display = form.style.display === 'none' ? 'block' : 'none';
-            newsForm.action = action === 'create' ? "{{ route('news.store') }}" : "{{ url('/news') }}/" + document.getElementById('news_id').value;
-            document.getElementById('form-method').value = action === 'create' ? 'POST' : 'PUT';
+        function toggleCreateForm() {
+            const createForm = document.getElementById('create-form');
+            createForm.style.display = createForm.style.display === 'none' ? 'block' : 'none';
         }
 
-        function editNews(news) {
-            toggleForm('edit');
-            document.getElementById('news_id').value = news.id;
-            document.getElementById('judul').value = news.judul;
-            document.getElementById('author').value = news.author;
-            document.getElementById('artikel').value = news.artikel;
+        function toggleEditForm(news = null) {
+            const editForm = document.getElementById('edit-form');
+            editForm.style.display = editForm.style.display === 'none' ? 'block' : 'none';
+
+            if (news) {
+                // Isi form dengan data berita yang akan diedit
+                document.getElementById('edit_judul').value = news.judul;
+                document.getElementById('edit_author').value = news.author;
+                document.getElementById('edit_artikel').value = news.artikel;
+
+                // Atur action form dengan route update sesuai ID berita
+                const editNewsForm = document.getElementById('editNewsForm');
+                editNewsForm.action = "{{ url('/news') }}/" + news.id;
+            }
         }
     </script>
 @endsection
