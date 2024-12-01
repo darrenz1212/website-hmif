@@ -24,15 +24,23 @@
                             <img src="{{ asset($candidate->image) }}" alt="{{ $candidate->nama }}" class="img-fluid rounded-circle mb-3" style="width: 200px; height: 200px; object-fit: cover;">
 
                             <!-- Informasi Kandidat -->
-                            <h3 class="card-title">{{ $candidate->nama }}</h3>
+                           <strong><h3 class="card-title">{{ $candidate->nama }}</h3></strong>
                             <p><strong>No Urut:</strong> {{ $candidate->no_urut }}</p>
 
                             <!-- Visi dan Misi -->
                             <div class="text-left">
-                                <h5>Visi:</h5>
+                              <strong><h3>Visi:</h3></strong>
                                 <p>{{ $candidate->visi }}</p>
-                                <h5>Misi:</h5>
-                                <p>{{ $candidate->misi }}</p>
+                                <br>
+                                <br>
+                                <strong><h3>Misi:</h3></strong>
+                                <ol>
+                                    @foreach(explode("\n", trim($candidate->misi)) as $misi)
+                                        @if(!empty($misi))
+                                            <li>{{ $misi }}</li>
+                                        @endif
+                                    @endforeach
+                                </ol>
                             </div>
 
                             <!-- Tombol Vote -->
